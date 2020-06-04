@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<div class="container">
+    <h1>This is your timeline</h1>
+
+
+<div class="row">
+
+
+    <div class='col-6'>
+    <p class='lead'>Feedbacks!</p>
+    <ul>
+    {% for tweet in tweets%}
+            <li>
+                {{tweet.user.username}}:
+                {{tweet.tweet}}
+                {% if session['userid'] == tweet.user_id %}
+                <form action="/delete/tweet/{{tweet.id}}" method='post' class='d-inline'>
+                    <button class="btn btn-danger">✘</button>
+                </form>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    <!-- show flash messages -->
+<div class="container" style="margin-top: 2em;">
+    {% for msg in get_flashed_messages() %}
+    <div class="alert alert-success">{{msg}}</div>
+    {% endfor %}
+
+
+</div>
+
+
+    </div>
+    <div class='col-6 border p-2 '>
+<form method="POST" >
+    {{ form.hidden_tag() }}
+
+        <fieldset class='tweet '>
+            {{form.tweet.label}}
+            {{form.tweet(placeholder='Say Something...')}}
+            <ul class="errors">
+
+                {% for error in form.tweet.errors %}
+                <p class="alert alert-danger">
+                    {{error }}
+                </p>
+
+            </ul>
+                {% endfor%}
+
+        </fieldset>
+        <fieldset class='submit '>
+
+            {{form.submit.label}}
+            {{form.submit(class_="btn btn-dark")}}
+
+            <ul class="errors">
+
+                {% for error in form.submit.errors %}
+                <p class="alert alert-danger">
+                    {{error }}
+            </p>
+
+            </ul>
+            {% endfor%}
+
+        </fieldset>
+
+
+    </form>
+</div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

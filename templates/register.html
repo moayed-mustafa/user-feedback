@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class='col-md-3'></div>
+        <div class="col-md-5">
+
+            <form method="POST" class='border p-2 mt-4'>
+
+
+                    <p class='lead'>Sign UP!</p>
+                {{ form.hidden_tag() }}
+                {% for field in form
+                        if field.widget.input_type != 'hidden'%}
+                        <fieldset>
+                            {{field.label}}
+                            {{field(class_="form-control")}}
+                            <ul class="errors">
+                                {% for error in field.errors %}
+                                <p class="alert alert-danger">
+                                    {{error }}
+                            </p>
+
+
+                            </ul>
+                            {% endfor%}
+                        </fieldset>
+
+                {% endfor %}
+            </form>
+            <div class="login mt-2">
+                <span  >Already have an account? <a href="/login">Log in.</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- <input type="submit" class="btn btn-outline-primary cc_pointer"></button> -->
+
+
+        {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
