@@ -7,12 +7,17 @@ from flask import Flask, render_template, redirect, session, flash, request
 from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, User, Feedback
 from forms import SignUpForm, LoginForm, FeedbackForm
+import os
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres:///feedback_db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = False
-app.config["SECRET_KEY"] = "abc123"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", '123asd')
+print("==============================================================================================================================")
+print(app.config["SECRET_KEY"])
+print("==============================================================================================================================")
+
 
 connect_db(app)
 db.create_all()
